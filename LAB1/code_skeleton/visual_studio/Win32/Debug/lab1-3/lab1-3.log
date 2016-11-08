@@ -1,0 +1,3 @@
+﻿cl : Command line warning D9007: '/Gm' requires '/Zi or /ZI'; option ignored
+  lab1-3.cpp
+LINK : fatal error LNK1104: cannot open file 'readfile.lib'

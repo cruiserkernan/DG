@@ -1,0 +1,8 @@
+﻿  lab1-4.cpp
+..\Lab1\lab1-4.cpp(26): warning C4244: '+=': conversion from 'double' to 'GLfloat', possible loss of data
+  Generating code
+  194 of 201 functions (96.5%) were compiled, the rest were copied from previous compilation.
+    187 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  lab1-4.vcxproj -> \\edunet\dfs\home17\ht14\vicsvh142\My Documents\LAB1\code_skeleton\visual_studio\..\Lab1\build\lab1-4.exe

@@ -1,0 +1,4 @@
+﻿  lab1-2.cpp
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  lab1-2.vcxproj -> G:\Dokument\Undervisning\Datorgrafik\Datorgrafik\labs\code_skeleton\visual_studio\..\Lab1\build\lab1-2.exe
+  lab1-2.vcxproj -> ..\Lab1\build\lab1-2.pdb (Full PDB)

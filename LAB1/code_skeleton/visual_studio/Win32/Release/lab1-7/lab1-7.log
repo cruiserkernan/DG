@@ -1,0 +1,13 @@
+﻿  lab1-7.cpp
+..\Lab1\lab1-7.cpp(117): warning C4305: '+=': truncation from 'double' to 'float'
+..\Lab1\lab1-7.cpp(121): warning C4305: '-=': truncation from 'double' to 'float'
+..\Lab1\lab1-7.cpp(125): warning C4305: '+=': truncation from 'double' to 'float'
+..\Lab1\lab1-7.cpp(129): warning C4305: '-=': truncation from 'double' to 'float'
+..\Lab1\lab1-7.cpp(244): warning C4101: 'a': unreferenced local variable
+..\Lab1\lab1-7.cpp(245): warning C4101: 'b': unreferenced local variable
+  Generating code
+  1 of 247 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  lab1-7.vcxproj -> \\edunet\dfs\home17\ht14\vicsvh142\My Documents\LAB1\code_skeleton\visual_studio\..\Lab1\build\lab1-7.exe
