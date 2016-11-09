@@ -1,0 +1,14 @@
+﻿  lab2-1.cpp
+\\edunet\dfs\home17\ht14\vicsvh142\my documents\lab2\lab2\lab2-1.cpp(98): warning C4305: '+=': truncation from 'double' to 'float'
+\\edunet\dfs\home17\ht14\vicsvh142\my documents\lab2\lab2\lab2-1.cpp(102): warning C4305: '-=': truncation from 'double' to 'float'
+\\edunet\dfs\home17\ht14\vicsvh142\my documents\lab2\lab2\lab2-1.cpp(106): warning C4305: '+=': truncation from 'double' to 'float'
+\\edunet\dfs\home17\ht14\vicsvh142\my documents\lab2\lab2\lab2-1.cpp(110): warning C4305: '-=': truncation from 'double' to 'float'
+\\edunet\dfs\home17\ht14\vicsvh142\my documents\lab2\lab2\lab2-1.cpp(285): warning C4101: 'a': unreferenced local variable
+\\edunet\dfs\home17\ht14\vicsvh142\my documents\lab2\lab2\lab2-1.cpp(286): warning C4101: 'b': unreferenced local variable
+  readfile.lib(readfile.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+lab2-1.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
+readfile.lib(readfile.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in lab2-1.obj
+readfile.lib(readfile.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in lab2-1.obj
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+..\Lab1\build\lab2-1.exe : fatal error LNK1319: 2 mismatches detected
