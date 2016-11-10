@@ -326,9 +326,9 @@ int main(int argc, char const *argv[])
 	float f = 100.0;
 
 	glm::vec3 light1_colour(1, 1, 1);
-	glm::vec3 light1_position(0, 1, -2);
+	glm::vec3 light1_position(2, 1, 2);
 	glm::vec3 light2_colour(0.2, 0.2, 1);
-	glm::vec3 light2_position(-2, 1, -2);
+	glm::vec3 light2_position(-2, 1, 2);
 	glm::vec3 light_colour[] = {light1_colour, light2_colour };
 	glm::vec3 light_position[] = {light1_position, light2_position };
 	int light_count = 2;
@@ -350,7 +350,10 @@ int main(int argc, char const *argv[])
 		auto modelMatrix = rotate_x * rotate_y;
 
 		auto inverseViewMatrix = glm::inverse(glm::translate(glm::vec3(0, 0, 2)));
+
+		
 		auto modelViewMatrix = inverseViewMatrix * modelMatrix;
+		auto normalMatrixNotTransposedYet = glm::inverse(modelViewMatrix);
 		auto modelViewProjectionMatrix = projectionMatrix * inverseViewMatrix * modelMatrix;
 
 		
@@ -360,6 +363,8 @@ int main(int argc, char const *argv[])
 
 		glUniformMatrix4fv(glGetUniformLocation(myShaders.get_shader_program(), "modelViewProjectionMatrix"), 1, 0, glm::value_ptr(modelViewProjectionMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(myShaders.get_shader_program(), "modelViewMatrix"), 1, 0, glm::value_ptr(modelViewMatrix));
+		//Normal matrix transposed here
+		glUniformMatrix4fv(glGetUniformLocation(myShaders.get_shader_program(), "normalMatrix"), 1, 1, glm::value_ptr(normalMatrixNotTransposedYet));
 		glUniform3fv(glGetUniformLocation(myShaders.get_shader_program(), "light_colour"), light_count, glm::value_ptr(light_colour[0]));
 		glUniform3fv(glGetUniformLocation(myShaders.get_shader_program(), "light_position"), light_count, glm::value_ptr(light_position[0]));
 		glUniform1i(glGetUniformLocation(myShaders.get_shader_program(), "light_count"), light_count);

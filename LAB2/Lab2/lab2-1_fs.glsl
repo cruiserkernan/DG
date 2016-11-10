@@ -8,7 +8,7 @@ uniform int light_count;
 uniform vec3 light_position[4]; // can have up to 4 light sources
 uniform vec3 light_colour[4];
 
-vec4 camera_position = {0, 0, -2, 0};
+//vec4 camera_position = {0, 0, -2, 0}; Not needed here, confused us !
 
 void main () {
 
@@ -29,8 +29,8 @@ void main () {
 	for (int i = 0; i < light_count; ++i )
 	{
 		Wi = normalize(light_position[i] - position.xyz);
-		Wr = normalize(-reflect(Wi, localnormal));
-		v = normalize(camera_position.xyz - position.xyz);
+		Wr = normalize(reflect(-Wi, localnormal));	//Minus Wi since Wi is originally directed towards light
+		v = normalize(vec3(0,0,0) - position.xyz); //0,0,0 since it is in camera space
 
 		//Diffuse
 		vec3 diffuse_term = light_colour[i] * Cd * Id * (max(dot(localnormal,Wi),0));
@@ -40,7 +40,7 @@ void main () {
 		vec3 specular_term = light_colour[i] * Cs * Is * pow(max(dot(Wr,v),0),f);
 		specular_term = clamp(specular_term,0,1);
 
-		sum += vec3( diffuse_term + specular_term);
+		sum += vec3(diffuse_term + specular_term);
 	}
 
 	frag_colour = vec4(Ca * Ia + sum, 1);
