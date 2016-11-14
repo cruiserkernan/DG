@@ -23,6 +23,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Lab2\lab2-2_fs.glsl" />
+    <None Include="..\Lab2\lab2-2_vs.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Lab2\Shaders.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2B44AC5E-DF5E-479D-8979-C062ECFD9AF8}</ProjectGuid>
@@ -101,7 +105,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\common;..\common\windows_users\GLFW\32bit\glfw-3.2.1.bin.WIN32\include;..\common\windows_users\GLEW\glew-2.0.0\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\common;..\common\windows_users\GLFW\32bit\glfw-3.2.1.bin.WIN32\include;..\common\windows_users\GLEW\glew-2.0.0\include;..\common\windows_users\glm\glm</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,7 +139,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\common;..\common\windows_users\GLFW\32bit\glfw-3.2.1.bin.WIN32\include;..\common\windows_users\GLEW\glew-2.0.0\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\common;..\common\windows_users\GLFW\32bit\glfw-3.2.1.bin.WIN32\include;..\common\windows_users\GLEW\glew-2.0.0\include;..\common\windows_users\glm\glm</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

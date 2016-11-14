@@ -34,11 +34,9 @@ void main () {
 
 		//Diffuse
 		vec3 diffuse_term = light_colour[i] * Cd * Id * (max(dot(localnormal,Wi),0));
-		diffuse_term = clamp(diffuse_term,0,1);
 
 		//Specular
 		vec3 specular_term = light_colour[i] * Cs * Is * pow(max(dot(Wr,v),0),f);
-		specular_term = clamp(specular_term,0,1);
 
 		sum += vec3(diffuse_term + specular_term);
 	}

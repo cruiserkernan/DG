@@ -24,6 +24,10 @@
   <ItemGroup>
     <ClInclude Include="..\Lab2\tiny_obj_loader.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Lab2\lab2-4_fs.glsl" />
+    <None Include="..\Lab2\lab2-4_vs.glsl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D1203DD2-1C33-4E6D-8854-9ABB41F105A9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -101,7 +105,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\common;..\common\windows_users\GLFW\32bit\glfw-3.2.1.bin.WIN32\include;..\common\windows_users\GLEW\glew-2.0.0\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\common;..\common\windows_users\GLFW\32bit\glfw-3.2.1.bin.WIN32\include;..\common\windows_users\GLEW\glew-2.0.0\include;..\common\windows_users\glm\glm</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,7 +139,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\common;..\common\windows_users\GLFW\32bit\glfw-3.2.1.bin.WIN32\include;..\common\windows_users\GLEW\glew-2.0.0\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\common;..\common\windows_users\GLFW\32bit\glfw-3.2.1.bin.WIN32\include;..\common\windows_users\GLEW\glew-2.0.0\include;..\common\windows_users\glm\glm</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
