@@ -23,7 +23,7 @@
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------//
 float g_rotation[2] = { 0, 0 };
 
-Shaders myShaders("../lab2-4_vs.glsl", "../lab2-4_fs.glsl");
+Shaders myShaders("../lab2-5_vs.glsl", "../lab2-5_fs.glsl");
 
 void checkShaderCompileError(GLint shaderID)
 {
