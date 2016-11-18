@@ -1,0 +1,13 @@
+﻿  lab2-4.cpp
+..\Lab2\lab2-4.cpp(81): warning C4018: '<': signed/unsigned mismatch
+..\Lab2\lab2-4.cpp(138): warning C4305: '+=': truncation from 'double' to 'float'
+..\Lab2\lab2-4.cpp(142): warning C4305: '-=': truncation from 'double' to 'float'
+..\Lab2\lab2-4.cpp(146): warning C4305: '+=': truncation from 'double' to 'float'
+..\Lab2\lab2-4.cpp(150): warning C4305: '-=': truncation from 'double' to 'float'
+..\Lab2\lab2-4.cpp(266): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Generating code
+  All 1754 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+readfile.lib(readfile.obj) : warning LNK4099: PDB 'readfile.pdb' was not found with 'readfile.lib(readfile.obj)' or at 'D:\Programmering\School\DG\LAB2\Lab2\build\readfile.pdb'; linking object as if no debug info
+  lab2-4.vcxproj -> D:\Programmering\School\DG\LAB2\visual_studio\..\Lab2\build\lab2-4.exe
+  lab2-4.vcxproj -> ..\Lab2\build\lab2-4.pdb (Full PDB)
