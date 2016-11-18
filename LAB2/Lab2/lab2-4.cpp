@@ -22,6 +22,7 @@
 // You can store the rotation angles here, for example
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------//
 float g_rotation[2] = { 0, 0 };
+float g_translate[2] = {0, 0};
 
 Shaders myShaders("../lab2-5_vs.glsl", "../lab2-5_fs.glsl");
 

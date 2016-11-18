@@ -59,7 +59,7 @@ vec3 lambertian_brdf( vec3 in_direction, vec3 out_direction, vec3 normal )
 vec3 fCookTorrance(vec3 Wi, vec3 Wo, vec3 n)
 {
 	float IOR = 1.5;
-	float alpha = 0.000000001;
+	float alpha = 0.02;
 
 
 	float WoDotN = max(dot(Wo,n),0);
@@ -86,7 +86,7 @@ float oren_nayar(vec3 Wi, vec3 Wo, vec3 n)
 
 vec3 cookTorrance_brdf(vec3 Wi, vec3 Wo, vec3 n, float Kd, float Ks) //Kd + ks <= 1
 {
-	return Kd * vec3(0.6, 0.99, 0.6) *  oren_nayar(Wi,Wo,n) + Ks * max(fCookTorrance(Wi,Wo,n), 0); 
+	return Kd * vec3(pow(0.6, 2.2), pow(0.99, 2.2), pow(0.6, 2.2)) *  oren_nayar(Wi,Wo,n) + Ks * max(fCookTorrance(Wi,Wo,n), 0); 
 	//return fCookTorrance(Wi,Wo,n);
 }
 
@@ -112,11 +112,11 @@ void main () {
 
 	Wo = normalize(vec3(0,0,0) - position.xyz); //0,0,0 since it is in camera space
 
-	for (int i = 0; i < 1; ++i )
+	for (int i = 0; i < light_count; ++i )
 	{
 		Wi = normalize(light_position[i] - position.xyz);
 		//sum += blinn_phong(Wi, Wo, normalized_normal) * light_colour[i] * max(dot(Wi, normalized_normal), 0);  
-		sum += cookTorrance_brdf(Wi, Wo, normalized_normal, 0.7, 0.3) * light_colour[i] * max(dot(Wi, normalized_normal), 0);
+		sum += cookTorrance_brdf(Wi, Wo, normalized_normal, 0.3, 0.7) * light_colour[i] * max(dot(Wi, normalized_normal), 0);
 	}
-	frag_colour = vec4(sum, 1);
+	frag_colour = vec4(pow(sum.x, 1/2.2), pow(sum.y, 1/2.2), pow(sum.z, 1/2.2),  1);
 }
