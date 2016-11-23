@@ -91,5 +91,5 @@ void main () {
 		Wi = normalize(light_position[i] - position.xyz);
 		sum += cookTorrance_brdf(Wi, Wo, normalized_normal, 0.7, 0.3) * light_colour[i] * max(dot(Wi, normalized_normal), 0);    
 	}
-	frag_colour = vec4(sum, 1);
+	frag_colour = vec4(pow(sum.x, 0.455), pow(sum.y, 0.455), pow(sum.z, 0.455), 1);
 }
