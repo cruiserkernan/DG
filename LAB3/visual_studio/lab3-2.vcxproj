@@ -20,6 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Lab3\lab3-2.cpp" />
+    <ClCompile Include="..\Lab3\lodepng.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Lab3\lodepng.h" />
+    <ClInclude Include="..\Lab3\Shaders.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A37D915C-F3AC-4315-8C18-8538A1DD2A80}</ProjectGuid>
@@ -98,7 +103,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\common;..\common\windows_users\GLFW\32bit\glfw-3.2.1.bin.WIN32\include;..\common\windows_users\GLEW\glew-2.0.0\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\common;..\common\windows_users\GLFW\32bit\glfw-3.2.1.bin.WIN32\include;..\common\windows_users\GLEW\glew-2.0.0\include;D:\Programmering\School\DG\LAB3\common\windows_users\glm\glm</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,7 +137,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\common;..\common\windows_users\GLFW\32bit\glfw-3.2.1.bin.WIN32\include;..\common\windows_users\GLEW\glew-2.0.0\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\common;..\common\windows_users\GLFW\32bit\glfw-3.2.1.bin.WIN32\include;..\common\windows_users\GLEW\glew-2.0.0\include;D:\Programmering\School\DG\LAB3\common\windows_users\glm\glm</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

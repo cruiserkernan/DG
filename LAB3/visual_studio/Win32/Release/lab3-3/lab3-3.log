@@ -1,0 +1,23 @@
+﻿  lab3-3.cpp
+..\Lab3\lab3-3.cpp(89): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+..\Lab3\lab3-3.cpp(108): warning C4018: '<': signed/unsigned mismatch
+..\Lab3\lab3-3.cpp(187): warning C4305: '+=': truncation from 'double' to 'float'
+..\Lab3\lab3-3.cpp(191): warning C4305: '-=': truncation from 'double' to 'float'
+..\Lab3\lab3-3.cpp(195): warning C4305: '+=': truncation from 'double' to 'float'
+..\Lab3\lab3-3.cpp(199): warning C4305: '-=': truncation from 'double' to 'float'
+..\Lab3\lab3-3.cpp(203): warning C4305: '+=': truncation from 'double' to 'float'
+..\Lab3\lab3-3.cpp(207): warning C4305: '-=': truncation from 'double' to 'float'
+..\Lab3\lab3-3.cpp(211): warning C4305: '+=': truncation from 'double' to 'float'
+..\Lab3\lab3-3.cpp(215): warning C4305: '-=': truncation from 'double' to 'float'
+..\Lab3\lab3-3.cpp(397): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+..\Lab3\lab3-3.cpp(397): warning C4305: 'initializing': truncation from 'double' to 'float'
+..\Lab3\lab3-3.cpp(431): warning C4018: '<': signed/unsigned mismatch
+..\Lab3\lab3-3.cpp(584): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Generating code
+  70 of 471 functions (14.9%) were compiled, the rest were copied from previous compilation.
+    69 functions were new in current compilation
+    22 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+readfile.lib(readfile.obj) : warning LNK4099: PDB 'readfile.pdb' was not found with 'readfile.lib(readfile.obj)' or at 'D:\Programmering\School\DG\LAB3\Lab3\build\readfile.pdb'; linking object as if no debug info
+  lab3-3.vcxproj -> D:\Programmering\School\DG\LAB3\visual_studio\..\Lab3\build\lab3-3.exe
+  lab3-3.vcxproj -> ..\Lab3\build\lab3-3.pdb (Full PDB)

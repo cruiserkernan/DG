@@ -1,0 +1,17 @@
+﻿  lab3-2.cpp
+..\Lab3\lab3-2.cpp(81): warning C4018: '<': signed/unsigned mismatch
+..\Lab3\lab3-2.cpp(138): warning C4305: '+=': truncation from 'double' to 'float'
+..\Lab3\lab3-2.cpp(142): warning C4305: '-=': truncation from 'double' to 'float'
+..\Lab3\lab3-2.cpp(146): warning C4305: '+=': truncation from 'double' to 'float'
+..\Lab3\lab3-2.cpp(150): warning C4305: '-=': truncation from 'double' to 'float'
+..\Lab3\lab3-2.cpp(332): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+..\Lab3\lab3-2.cpp(332): warning C4305: 'initializing': truncation from 'double' to 'float'
+..\Lab3\lab3-2.cpp(639): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Generating code
+  0 of 399 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    12 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+readfile.lib(readfile.obj) : warning LNK4099: PDB 'readfile.pdb' was not found with 'readfile.lib(readfile.obj)' or at 'D:\Programmering\School\DG\LAB3\Lab3\build\readfile.pdb'; linking object as if no debug info
+  lab3-2.vcxproj -> D:\Programmering\School\DG\LAB3\visual_studio\..\Lab3\build\lab3-2.exe
+  lab3-2.vcxproj -> ..\Lab3\build\lab3-2.pdb (Full PDB)
