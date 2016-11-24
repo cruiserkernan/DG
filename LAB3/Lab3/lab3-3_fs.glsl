@@ -98,7 +98,7 @@ vec3 cookTorrance_brdf(vec3 Wi, vec3 Wo, vec3 n, float Kd, float Ks) //Kd + ks <
 }
 
 
-float blinn_phong(vec3 Wi, vec3 Wo, vec3 n)
+vec3 blinn_phong(vec3 Wi, vec3 Wo, vec3 n)
 {
 	float kL = 0.7;
 	float kG = 1-kL;
@@ -121,6 +121,7 @@ void main () {
 	bump_normal = normalize(vec3(bump_normal.x*2-1, bump_normal.y*2-1, bump_normal.z*2-1)); //Standard here is bumps, negate xy for cavities
 	vec3 normalized_tangent = normalize(tangent.xyz);
 	vec3 normalized_bitangent = normalize(bitangent.xyz);	
+	//vec3 normalized_bitangent = cross(normalized_normal, normalized_tangent);
 	mat3 TBN = mat3(normalized_tangent,normalized_bitangent,normalized_normal);
 
 	Wo = normalize(vec3(0,0,0) - position.xyz); //0,0,0 since it is in camera space
@@ -129,7 +130,7 @@ void main () {
 	// CAREFUL! NORMAL SWITCH!
 	normalized_normal = normalize(bump_normal);
 
-	for (int i = 0; i < light_count; ++i )
+	for (int i = 0; i < 1; ++i )
 	{
 		Wi = normalize(light_position[i] - position.xyz);
 		sum += blinn_phong(Wi, Wo, normalized_normal) * light_colour[i] * max(dot(Wi, normalized_normal), 0);  

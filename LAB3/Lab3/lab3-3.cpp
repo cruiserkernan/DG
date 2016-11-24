@@ -78,17 +78,17 @@ glm::vec3 calculateSurfaceNormal(glm::vec3& p1, glm::vec3& p2, glm::vec3& p3)
 
 void calculateTangents(std::vector<glm::vec3>& tangents, std::vector<glm::vec3>& bitangents, glm::vec2& uv1, glm::vec2& uv2, glm::vec2& uv3, glm::vec3& p1, glm::vec3& p2, glm::vec3& p3)
 {
-	auto e1 = p2 - p1;
-	auto e2 = p3 - p1;
-	auto delta_u1 = uv2.x - uv1.x;
-	auto delta_v1 = uv2.y - uv1.y;
+	glm::vec3 e1 = p2 - p1;
+	glm::vec3 e2 = p3 - p1;
+	float delta_u1 = uv2.x - uv1.x;
+	float delta_v1 = uv2.y - uv1.y;
 
-	auto delta_u2 = uv3.x - uv1.x;
-	auto delta_v2 = uv3.y - uv1.y;
+	float delta_u2 = uv3.x - uv1.x;
+	float delta_v2 = uv3.y - uv1.y;
 
 	float r = 1.0f / (delta_u1*delta_v2 - delta_v1*delta_u2);
-	glm::vec3 tangent_vec = (delta_v2*e1 - delta_v1*e2) * r;
-	glm::vec3 bitangent_vec = (delta_u1*e2 - delta_u2*e1) * r;
+	glm::vec3 tangent_vec = (delta_v2*e1 - delta_v1*e2) / r;
+	glm::vec3 bitangent_vec = (delta_u1*e2 - delta_u2*e1) / r;
 
 
 
@@ -103,7 +103,7 @@ void calculateTangents(std::vector<glm::vec3>& tangents, std::vector<glm::vec3>&
 
 }
 
-void calculateAllNormals(unsigned short faces[], const int faces_count, float points[], const int normalOffset, std::vector<glm::vec3>& tangents, std::vector<glm::vec3>& bitangents, float uv_cords[])
+void calculateAllNormals(unsigned short faces[], const int faces_count, float points[], const int normalOffset, float tangents[], float bitangents[], float uv_cords[])
 {
 	const int stride = 3;
 	const int uvstride = 2;
@@ -153,12 +153,47 @@ void calculateAllNormals(unsigned short faces[], const int faces_count, float po
 		uv3.x = uv_cords[faces[i + 2] * uvstride + 0];
 		uv3.y = uv_cords[faces[i + 2] * uvstride + 1];
 
-		calculateTangents(tangents, bitangents, uv1, uv2, uv3, p1, p2, p3);
+		glm::vec3 e1 = p2 - p1;
+		glm::vec3 e2 = p3 - p1;
+		float delta_u1 = uv2.x - uv1.x;
+		float delta_v1 = uv2.y - uv1.y;
+
+		float delta_u2 = uv3.x - uv1.x;
+		float delta_v2 = uv3.y - uv1.y;
+
+		float r = 1.0f / (delta_u1*delta_v2 - delta_v1*delta_u2);
+		glm::vec3 tangent_vec = (delta_v2*e1 - delta_v1*e2) * r;
+		glm::vec3 bitangent_vec = (delta_u1*e2 - delta_u2*e1) * r;
+
+
+		tangents[faces[i] * stride + 0] = tangent_vec.x;
+		tangents[faces[i] * stride + 1] = tangent_vec.y;
+		tangents[faces[i] * stride + 2] = tangent_vec.z;
+
+		tangents[faces[i + 1] * stride + 0] = tangent_vec.x;
+		tangents[faces[i + 1] * stride + 1] = tangent_vec.y;
+		tangents[faces[i + 1] * stride + 2] = tangent_vec.z;
+
+		tangents[faces[i + 2] * stride + 0] = tangent_vec.x;
+		tangents[faces[i + 2] * stride + 1] = tangent_vec.y;
+		tangents[faces[i + 2] * stride + 2] = tangent_vec.z;
+
+		bitangents[faces[i] * stride + 0] = bitangent_vec.x;
+		bitangents[faces[i] * stride + 1] = bitangent_vec.y;
+		bitangents[faces[i] * stride + 2] = bitangent_vec.z;
+
+		bitangents[faces[i + 1] * stride + 0] = bitangent_vec.x;
+		bitangents[faces[i + 1] * stride + 1] = bitangent_vec.y;
+		bitangents[faces[i + 1] * stride + 2] = bitangent_vec.z;
+
+		bitangents[faces[i + 2] * stride + 0] = bitangent_vec.x;
+		bitangents[faces[i + 2] * stride + 1] = bitangent_vec.y;
+		bitangents[faces[i + 2] * stride + 2] = bitangent_vec.z;
+
 
 
 	}
 
-	std::cout << "tangents size " << tangents.size() << "bitangents size " << bitangents.size();
 }
 
 
@@ -425,21 +460,11 @@ int main(int argc, char const *argv[])
 	};
 
 	hackerfunction(faces);
-
-	std::vector<glm::vec3> tangents, bitangents;
+	float tangents[180], bitangents[180];//changed this
 	calculateAllNormals(faces, (sizeof(faces) / sizeof(faces[0])), points, (sizeof(points) / sizeof(points[0])) / 2, tangents, bitangents, uv_coords);
 
-	float tangents_array[180], bitangents_array[180];//changed this
-	for(int i = 0; i < tangents.size(); ++i)
-	{
-		tangents_array[i * 3 + 0] = tangents[i].x;
-		tangents_array[i * 3 + 1] = tangents[i].y;
-		tangents_array[i * 3 + 2] = tangents[i].z;
 
-		bitangents_array[i * 3 + 0] = bitangents[i].x;
-		bitangents_array[i * 3 + 1] = bitangents[i].y;
-		bitangents_array[i * 3 + 2] = bitangents[i].z;
-	}
+
 
 	// Populate your VBO with shapes[0].mesh.positions and shapes[0].mesh.normals
 	// ...
@@ -484,7 +509,7 @@ int main(int argc, char const *argv[])
 		(void*)0
 	);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(tangents_array), tangents_array, GL_STATIC_DRAW);//Something with this!
+	glBufferData(GL_ARRAY_BUFFER, sizeof(tangents), tangents, GL_STATIC_DRAW);//Something with this!
 	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(
 		3,
@@ -495,7 +520,7 @@ int main(int argc, char const *argv[])
 		(void*)0
 	);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[3]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(bitangents_array), bitangents_array, GL_STATIC_DRAW); //Something with this!
+	glBufferData(GL_ARRAY_BUFFER, sizeof(bitangents), bitangents, GL_STATIC_DRAW); //Something with this!
 	glEnableVertexAttribArray(4);
 	glVertexAttribPointer(
 		4,
@@ -588,7 +613,7 @@ int main(int argc, char const *argv[])
 	float f = 100.0;
 
 	glm::vec3 light1_colour(1, 1, 1);
-	glm::vec3 light1_position(2, 1, 2);
+	glm::vec3 light1_position(1000, 0, 0);
 	glm::vec3 light2_colour(1, 1, 1);
 	glm::vec3 light2_position(-2, 1, 2);
 	glm::vec3 light_colour[] = { light1_colour, light2_colour };
