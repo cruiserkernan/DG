@@ -81,14 +81,16 @@ void calculateTangents(std::vector<glm::vec3>& tangents, std::vector<glm::vec3>&
 	auto e1 = p2 - p1;
 	auto e2 = p3 - p1;
 	auto delta_u1 = uv2.x - uv1.x;
-	auto delta_v1 = uv2.y - uv2.y;
+	auto delta_v1 = uv2.y - uv1.y;
 
 	auto delta_u2 = uv3.x - uv1.x;
 	auto delta_v2 = uv3.y - uv1.y;
 
-	float r = 1.0 / (delta_u1*delta_v2 - delta_v1*delta_u2);
+	float r = 1.0f / (delta_u1*delta_v2 - delta_v1*delta_u2);
 	glm::vec3 tangent_vec = (delta_v2*e1 - delta_v1*e2) * r;
 	glm::vec3 bitangent_vec = (delta_u1*e2 - delta_u2*e1) * r;
+
+
 
 	//Push to arrays
 	tangents.push_back(tangent_vec);
@@ -427,7 +429,7 @@ int main(int argc, char const *argv[])
 	std::vector<glm::vec3> tangents, bitangents;
 	calculateAllNormals(faces, (sizeof(faces) / sizeof(faces[0])), points, (sizeof(points) / sizeof(points[0])) / 2, tangents, bitangents, uv_coords);
 
-	float tangents_array[360], bitangents_array[360];
+	float tangents_array[180], bitangents_array[180];//changed this
 	for(int i = 0; i < tangents.size(); ++i)
 	{
 		tangents_array[i * 3 + 0] = tangents[i].x;
@@ -573,7 +575,8 @@ int main(int argc, char const *argv[])
 	std::cout << "Nmap hi res: Read width " << image_w << " x height " << image_h << " image\n";
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_w, image_h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nmap_data);
-	glGenerateMipmap(GL_TEXTURE_2D); //maybe remove?
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 									 //-----------------------------------------------------------------------------------------------------------------------------------------------------------//
 									 // attach and link vertex and fragment shaders into a shader program
@@ -585,8 +588,8 @@ int main(int argc, char const *argv[])
 	float f = 100.0;
 
 	glm::vec3 light1_colour(1, 1, 1);
-	glm::vec3 light1_position(1000, 0, 0);
-	glm::vec3 light2_colour(0.2, 0.2, 1);
+	glm::vec3 light1_position(2, 1, 2);
+	glm::vec3 light2_colour(1, 1, 1);
 	glm::vec3 light2_position(-2, 1, 2);
 	glm::vec3 light_colour[] = { light1_colour, light2_colour };
 	glm::vec3 light_position[] = { light1_position, light2_position };

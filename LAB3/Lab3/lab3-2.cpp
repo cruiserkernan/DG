@@ -583,7 +583,9 @@ int main(int argc, char const *argv[])
 	GLuint texture_handle;
 	glGenTextures(1, &texture_handle);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture_handle);
+	glBindTexture(GL_TEXTURE_2D, texture_handle);
+
+
 	//Load images
 	unsigned char* image_data;
 	unsigned image_w;
@@ -686,7 +688,8 @@ int main(int argc, char const *argv[])
 
 		//Texture uniform
 		glUniform1i(glGetUniformLocation(myShaders.get_shader_program(), "tex_sampler"), 0);
-		glUniform1i(glGetUniformLocation(myShaders.get_shader_program(), "cube_sampler"), 1);
+		glUniform1i(glGetUniformLocation(myShaders.get_shader_program(), "cube_sampler"), 1);
+
 		// update other events like input handling 
 		glfwPollEvents();
 

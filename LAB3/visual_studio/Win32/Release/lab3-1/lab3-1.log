@@ -7,9 +7,10 @@
 ..\Lab3\lab3-1.cpp(332): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
 ..\Lab3\lab3-1.cpp(332): warning C4305: 'initializing': truncation from 'double' to 'float'
 ..\Lab3\lab3-1.cpp(611): warning C4305: 'initializing': truncation from 'double' to 'float'
+  lodepng.cpp
   Generating code
-  1 of 391 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
+  391 of 391 functions (100.0%) were compiled, the rest were copied from previous compilation.
+    13 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  lab3-1.vcxproj -> \\edunet\dfs\home17\ht14\vicsvh142\My Documents\DG\LAB3\visual_studio\..\Lab3\build\lab3-1.exe
+  lab3-1.vcxproj -> C:\DG\LAB3\visual_studio\..\Lab3\build\lab3-1.exe

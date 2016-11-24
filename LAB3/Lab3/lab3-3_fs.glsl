@@ -100,12 +100,12 @@ vec3 cookTorrance_brdf(vec3 Wi, vec3 Wo, vec3 n, float Kd, float Ks) //Kd + ks <
 
 float blinn_phong(vec3 Wi, vec3 Wo, vec3 n)
 {
-	float kL = 0.8;
+	float kL = 0.7;
 	float kG = 1-kL;
 	float s = 600;
 	vec3 h = normalize(Wi + Wo);
 	float hDotN = max(dot(h, n), 0);
-	return kL / 3.14 + kG * pow(hDotN, s) * (8 + s) / (8 * 3.14); 
+	return kL*texture(tex_sampler, uv).rgb / 3.14 + kG * pow(hDotN, s) * (8 + s) / (8 * 3.14); 
 }
 
 
@@ -117,21 +117,23 @@ void main () {
 	vec3 Wi;
 	vec3 Wr;
 	vec3 Wo;
-	vec3 bump_normal = normalize((texture(normal_sampler,uv)*2).rgb-1); //Scale
-	vec4 normalized_tangent = vec4(normalize(tangent.xyz),0);
-	vec4 normalized_bitangent = vec4(normalize(bitangent.xyz),0);
-	mat4 TBN = mat4(normalized_tangent,normalized_bitangent,vec4(normalized_normal,0),vec4(0,0,0,1));
+	vec3 bump_normal = texture(normal_sampler,uv).xyz; 
+	bump_normal = normalize(vec3(bump_normal.x*2-1, bump_normal.y*2-1, bump_normal.z*2-1)); //Standard here is bumps, negate xy for cavities
+	vec3 normalized_tangent = normalize(tangent.xyz);
+	vec3 normalized_bitangent = normalize(bitangent.xyz);	
+	mat3 TBN = mat3(normalized_tangent,normalized_bitangent,normalized_normal);
 
 	Wo = normalize(vec3(0,0,0) - position.xyz); //0,0,0 since it is in camera space
 
-	bump_normal = (TBN * vec4(bump_normal,0)).xyz;
+	bump_normal = TBN * bump_normal;
 	// CAREFUL! NORMAL SWITCH!
 	normalized_normal = normalize(bump_normal);
-	for (int i = 0; i < 1; ++i )
+
+	for (int i = 0; i < light_count; ++i )
 	{
 		Wi = normalize(light_position[i] - position.xyz);
-		//sum += blinn_phong(Wi, Wo, normalized_normal) * light_colour[i] * max(dot(Wi, normalized_normal), 0);  
-		sum += cookTorrance_brdf(Wi, Wo, normalized_normal, 0.3, 0.7) * light_colour[i] * max(dot(Wi, normalized_normal), 0);
+		sum += blinn_phong(Wi, Wo, normalized_normal) * light_colour[i] * max(dot(Wi, normalized_normal), 0);  
+		//sum += cookTorrance_brdf(Wi, Wo, normalized_normal, 0.3, 0.7) * light_colour[i] * max(dot(Wi, normalized_normal), 0);
 	}
 	vec3 reflected_view = reflect(-Wo,normalized_normal);
 	//frag_colour = vec4(mix(texture(cube_sampler,reflected_view).rgb * F(Wo, normalized_normal, 1.5), sum , 0.5), 1);
@@ -140,5 +142,6 @@ void main () {
 	//frag_colour = vec4(texture(tex_sampler, vec2(uv.x, uv.y)).rgb, 1);
 	//frag_colour = vec4(uv,1,1);
 	//frag_colour = texture(normal_sampler,uv);
+	//frag_colour = vec4(normalized_normal,0);
 	
 }
