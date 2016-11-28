@@ -17,7 +17,7 @@ out vec2 teTexCoord;
 uniform sampler2D heightmap;
 
 // We'll finally apply these uniforms now 
-uniform mat4 modelMatrix;
+uniform mat4 normalMatrix;
 uniform mat4 modelViewMatrix;
 uniform mat4 modelViewProjectionMatrix;
 
@@ -47,24 +47,34 @@ void main()
 
   // 1. Compute interpolated Position and TexCoord using gl_TessCoord
   // with tcPosition and tcTexCoord, respectively.
+  vec3 tmpPosition = gl_TessCoord.x * tcPosition[0] + 
+                    gl_TessCoord.y * tcPosition[1] +
+                    gl_TessCoord.z * tcPosition[2];
+
+  vec2 teTexCoord = gl_TessCoord.x * tcTexCoord[0] + 
+                    gl_TessCoord.y * tcTexCoord[1];
 
   // vec4 tmpPosition = ...;
   // teTexCoord = ...;
 
   // 2. Compute the normal for the triangle that connects tcPosition[]
+   vec3 U = tcPosition[1] - tcPosition[0];
+   vec3 V = tcPosition[2] - tcPosition[0];
+	 vec3 normal = cross(U, V);
 
   // 3. Compute the amount of displacement for the vertex by using the
   // sampler2D heightmap
-
-  // tmpPosition += d*normal; 
+  float d = texture(heightmap,teTexCoord).x * -0.1;
+  tmpPosition += d*normal; 
 
   // 4a. Select 2 other texture coordinates and compute the
   // displacement at those points.
   
   // 4b. Use the three displaced points to compute a new normal, and
   // put it in teNormal;
-
+  //teNormal = (normalMatrix * vec4(normal, 0)).xyz;
   // 5. Now apply transformations  
+  teNormal = (normalMatrix * vec4(normal, 0)).xyz;
   gl_Position = modelViewProjectionMatrix * vec4(tmpPosition, 1);
   tePosition = modelViewMatrix*vec4(tmpPosition, 1);
 }

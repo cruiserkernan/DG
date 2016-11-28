@@ -12,8 +12,9 @@ out vec3 tcPosition[];
 out vec2 tcTexCoord[];
 
 // Try different levels here!
-float TessLevelInner = 64;
-float TessLevelOuter = 1;
+float TessLevelInner = 20;
+float TessLevelOuter = 20;
+
 
 
 void main()
@@ -21,7 +22,7 @@ void main()
   // In the Tesselation ControlShader gl_InvocationID is the
   // invocation (0,1,2,3) of the shader since it is called once per
   // vertex in the patch.
-  
+ 
   // Just pass through positions and texture coordinates
   tcPosition[gl_InvocationID] = vPosition[gl_InvocationID];
   tcTexCoord[gl_InvocationID] = vTexCoord[gl_InvocationID];
