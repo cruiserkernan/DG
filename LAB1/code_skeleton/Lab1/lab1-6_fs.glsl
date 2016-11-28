@@ -1,6 +1,7 @@
 #version 400
 out vec4 frag_colour;
 in vec4 position;
+uniform mat4 modelViewProjectionMatrix;
 
 vec3 hsv2rgb(vec3 c)
 {
@@ -11,5 +12,5 @@ vec3 hsv2rgb(vec3 c)
 
 void main () {
 	vec3 z = hsv2rgb(vec3((position.z+1), 1, 1));
-	frag_colour = vec4(z.xyz,1);
+	frag_colour = vec4(position.zzz,1);
 }

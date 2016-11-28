@@ -12,9 +12,9 @@
 ..\Lab3\lab3-4.cpp(434): warning C4305: 'initializing': truncation from 'double' to 'float'
 ..\Lab3\lab3-4.cpp(625): warning C4305: 'initializing': truncation from 'double' to 'float'
   Generating code
-  31 of 430 functions ( 7.2%) were compiled, the rest were copied from previous compilation.
-    26 functions were new in current compilation
-    16 functions had inline decision re-evaluated but remain unchanged
+  2 of 430 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 readfile.lib(readfile.obj) : warning LNK4099: PDB 'readfile.pdb' was not found with 'readfile.lib(readfile.obj)' or at 'D:\Programmering\School\DG\LAB3\Lab3\build\readfile.pdb'; linking object as if no debug info
   lab3-4.vcxproj -> D:\Programmering\School\DG\LAB3\visual_studio\..\Lab3\build\lab3-4.exe

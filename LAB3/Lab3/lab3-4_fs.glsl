@@ -10,6 +10,7 @@ in vec4 bitangent;
 uniform sampler2D tex_sampler;
 uniform samplerCube cube_sampler;
 uniform sampler2D normal_sampler;
+uniform sampler2D heightmap;
 
 uniform int light_count;
 uniform vec3 light_position[4]; // can have up to 4 light sources
@@ -131,4 +132,5 @@ void main () {
 		//sum += cookTorrance_brdf(Wi, Wo, normalized_normal, 0.3, 0.7) * light_colour[i] * max(dot(Wi, normalized_normal), 0);
 	}
 	frag_colour = vec4(pow(sum.x, 1/2.2), pow(sum.y, 1/2.2), pow(sum.z, 1/2.2),  1);
+	//frag_colour = vec4(teNormal.rgb, 1);
 }

@@ -131,10 +131,10 @@ class Shaders
 			tesselation_evaluation_shader_str = readFile(tesselation_evaluation_filename.c_str());
 			const char *tesselation_control_shader_src = tesselation_control_shader_str.c_str();
 			const char *tesselation_evaluation_shader_src = tesselation_evaluation_shader_str.c_str();
-			vs = glCreateShader(GL_TESS_CONTROL_SHADER);
+			tcs = glCreateShader(GL_TESS_CONTROL_SHADER);
 			glShaderSource(tcs, 1, &tesselation_control_shader_src, NULL);
 			glCompileShader(tcs);
-			fs = glCreateShader(GL_TESS_EVALUATION_SHADER);
+			tes = glCreateShader(GL_TESS_EVALUATION_SHADER);
 			glShaderSource(tes, 1, &tesselation_evaluation_shader_src, NULL);
 			glCompileShader(tes);
 			glAttachShader(shader_program, tcs);
