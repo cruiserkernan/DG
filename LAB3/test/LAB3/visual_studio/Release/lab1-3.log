@@ -1,4 +1,0 @@
-﻿C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Release\) contains files shared from another project (lab1-1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  lab1-3.cpp
-lab1-3.obj : error LNK2001: unresolved external symbol "class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > __cdecl readFile(char const *)" (?readFile@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PBD@Z)
-G:\Dokument\Undervisning\Datorgrafik\Datorgrafik\labs\code_skeleton\visual_studio\Release\lab1-3.exe : fatal error LNK1120: 1 unresolved externals
