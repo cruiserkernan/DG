@@ -12,7 +12,7 @@
 #include <cstdlib>  
 #include <iostream>
 #include "readfile.hpp"
-#include "Shaders.h"
+#include "Shaders3.4.h"
 #include "lodepng.h"
 
 
@@ -561,47 +561,47 @@ int main(int argc, char const *argv[])
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	//Textur för cube map
-	//GLuint texture_cube_handle;
-	//glGenTextures(1, &texture_cube_handle);
-	//glActiveTexture(GL_TEXTURE1); //Antar att det blir 1 nu ?
-	//glBindTexture(GL_TEXTURE_CUBE_MAP, texture_cube_handle);
+	GLuint texture_cube_handle;
+	glGenTextures(1, &texture_cube_handle);
+	glActiveTexture(GL_TEXTURE1); //Antar att det blir 1 nu ?
+	glBindTexture(GL_TEXTURE_CUBE_MAP, texture_cube_handle);
 
-	////Load images (one for each side!)
-	//unsigned char* cube_image_data[6];
+	//Load images (one for each side!)
+	unsigned char* cube_image_data[6];
 
 
-	//image_file = lodepng_decode32_file(&cube_image_data[0], &image_w, &image_h, "../../common/data/cube-room_right.png");
-	//std::cout << "Cube map2: Read width " << image_w << " x height " << image_h << " image\n";
-	//image_file = lodepng_decode32_file(&cube_image_data[1], &image_w, &image_h, "../../common/data/cube-room_left.png");
-	//std::cout << "Cube map4: Read width " << image_w << " x height " << image_h << " image\n";
-	//image_file = lodepng_decode32_file(&cube_image_data[2], &image_w, &image_h, "../../common/data/cube-room_top.png");
-	//std::cout << "Cube map3: Read width " << image_w << " x height " << image_h << " image\n";
-	//image_file = lodepng_decode32_file(&cube_image_data[3], &image_w, &image_h, "../../common/data/cube-room_bottom.png");
-	//std::cout << "Cube map5: Read width " << image_w << " x height " << image_h << " image\n";
-	//image_file = lodepng_decode32_file(&cube_image_data[4], &image_w, &image_h, "../../common/data/cube-room_back.png");
-	//std::cout << "Cube map6: Read width " << image_w << " x height " << image_h << " image\n";
-	//image_file = lodepng_decode32_file(&cube_image_data[5], &image_w, &image_h, "../../common/data/cube-room_front.png");
-	//std::cout << "Cube map7: Read width " << image_w << " x height " << image_h << " image\n";
+	image_file = lodepng_decode32_file(&cube_image_data[0], &image_w, &image_h, "../../common/data/cube-room_right.png");
+	std::cout << "Cube map2: Read width " << image_w << " x height " << image_h << " image\n";
+	image_file = lodepng_decode32_file(&cube_image_data[1], &image_w, &image_h, "../../common/data/cube-room_left.png");
+	std::cout << "Cube map4: Read width " << image_w << " x height " << image_h << " image\n";
+	image_file = lodepng_decode32_file(&cube_image_data[2], &image_w, &image_h, "../../common/data/cube-room_top.png");
+	std::cout << "Cube map3: Read width " << image_w << " x height " << image_h << " image\n";
+	image_file = lodepng_decode32_file(&cube_image_data[3], &image_w, &image_h, "../../common/data/cube-room_bottom.png");
+	std::cout << "Cube map5: Read width " << image_w << " x height " << image_h << " image\n";
+	image_file = lodepng_decode32_file(&cube_image_data[4], &image_w, &image_h, "../../common/data/cube-room_back.png");
+	std::cout << "Cube map6: Read width " << image_w << " x height " << image_h << " image\n";
+	image_file = lodepng_decode32_file(&cube_image_data[5], &image_w, &image_h, "../../common/data/cube-room_front.png");
+	std::cout << "Cube map7: Read width " << image_w << " x height " << image_h << " image\n";
 
-	//for (int i = 0; i < 6; i++)
-	//{
-	//	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, image_w, image_h, 0, GL_RGBA, GL_UNSIGNED_BYTE, cube_image_data[i]);
+	for (int i = 0; i < 6; i++)
+	{
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, image_w, image_h, 0, GL_RGBA, GL_UNSIGNED_BYTE, cube_image_data[i]);
 
-	//}
-	//glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+	}
+	glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 
-	//Bump map
-	GLuint texture_normal_map_handle;
-	glGenTextures(1, &texture_normal_map_handle);
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, texture_normal_map_handle);
-	unsigned char* nmap_data;
-	image_file = lodepng_decode32_file(&nmap_data, &image_w, &image_h, "../../common/data/numberline_nmap_hires.png");
-	std::cout << "Nmap hi res: Read width " << image_w << " x height " << image_h << " image\n";
+	////Bump map
+	//GLuint texture_normal_map_handle;
+	//glGenTextures(1, &texture_normal_map_handle);
+	//glActiveTexture(GL_TEXTURE2);
+	//glBindTexture(GL_TEXTURE_2D, texture_normal_map_handle);
+	//unsigned char* nmap_data;
+	//image_file = lodepng_decode32_file(&nmap_data, &image_w, &image_h, "../../common/data/numberline_nmap_hires.png");
+	//std::cout << "Nmap hi res: Read width " << image_w << " x height " << image_h << " image\n";
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_w, image_h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nmap_data);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_w, image_h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nmap_data);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	//Height map
 	GLuint texture_height_map_handle;
@@ -609,7 +609,7 @@ int main(int argc, char const *argv[])
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, texture_height_map_handle);
 	unsigned char* heightMap_data;
-	image_file = lodepng_decode32_file(&heightMap_data, &image_w, &image_h, "../../common/data/numberline_df_hires.png");
+	image_file = lodepng_decode32_file(&heightMap_data, &image_w, &image_h, "../../common/data/numberline_df_inv.png");
 	std::cout << "Height map hires: Read width " << image_w << " x height " << image_h << " image\n";
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_w, image_h, 0, GL_RGBA, GL_UNSIGNED_BYTE, heightMap_data);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -626,8 +626,8 @@ int main(int argc, char const *argv[])
 	float f = 100.0;
 
 	glm::vec3 light1_colour(1, 1, 1);
-	glm::vec3 light1_position(1000, 0, 0);
-	glm::vec3 light2_colour(1, 1, 1);
+	glm::vec3 light1_position(2, 1, 2);
+	glm::vec3 light2_colour(0.5, 0.5, 1);
 	glm::vec3 light2_position(-2, 1, 2);
 	glm::vec3 light_colour[] = { light1_colour, light2_colour };
 	glm::vec3 light_position[] = { light1_position, light2_position };
@@ -672,7 +672,7 @@ int main(int argc, char const *argv[])
 
 		//Texture uniform
 		glUniform1i(glGetUniformLocation(myShaders.get_shader_program(), "tex_sampler"), 0);
-		//glUniform1i(glGetUniformLocation(myShaders.get_shader_program(), "cube_sampler"), 1);
+		glUniform1i(glGetUniformLocation(myShaders.get_shader_program(), "cube_sampler"), 1);
 		//glUniform1i(glGetUniformLocation(myShaders.get_shader_program(), "normal_sampler"), 2);
 		glUniform1i(glGetUniformLocation(myShaders.get_shader_program(), "heightmap"), 3);
 
@@ -685,9 +685,6 @@ int main(int argc, char const *argv[])
 		//-----------------------------------------------------------------------------------------------------------------------------------------------------------//
 		// Issue an appropriate glDraw*() command.
 		//-----------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-		//glDrawArrays(GL_TRIANGLES, 0, sizeof(points) / sizeof(float));
-		glPatchParameteri(GL_PATCH_VERTICES, 3);
 		glDrawElements(
 			GL_PATCHES,
 			sizeof(faces) / sizeof(faces[0]),

@@ -124,7 +124,7 @@ void main () {
 	}
 	vec3 reflected_view = reflect(-Wo,normalized_normal);
 
-	frag_colour = vec4(mix(texture(cube_sampler,reflected_view).rgb * F(Wo, normalized_normal, 1.5), sum , 0.5), 1);
+	frag_colour = vec4(mix(texture(cube_sampler,reflected_view).rgb, sum , 0.5), 1);
 	//frag_colour = vec4(pow(sum.x, 1/2.2), pow(sum.y, 1/2.2), pow(sum.z, 1/2.2),  1);
 	//frag_colour = vec4(texture(tex_sampler, vec2(uv.x, uv.y)).rgb, 1);
 	//frag_colour = vec4(uv,1,1);

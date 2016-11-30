@@ -12,7 +12,7 @@
 #include <cstdlib>  
 #include <iostream>
 #include "readfile.hpp"
-#include "Shaders.h"
+#include "Shaders3.3.h"
 #include "lodepng.h"
 
 
@@ -76,32 +76,6 @@ glm::vec3 calculateSurfaceNormal(glm::vec3& p1, glm::vec3& p2, glm::vec3& p3)
 	return glm::cross(U, V);
 }
 
-void calculateTangents(std::vector<glm::vec3>& tangents, std::vector<glm::vec3>& bitangents, glm::vec2& uv1, glm::vec2& uv2, glm::vec2& uv3, glm::vec3& p1, glm::vec3& p2, glm::vec3& p3)
-{
-	glm::vec3 e1 = p2 - p1;
-	glm::vec3 e2 = p3 - p1;
-	float delta_u1 = uv2.x - uv1.x;
-	float delta_v1 = uv2.y - uv1.y;
-
-	float delta_u2 = uv3.x - uv1.x;
-	float delta_v2 = uv3.y - uv1.y;
-
-	float r = 1.0f / (delta_u1*delta_v2 - delta_v1*delta_u2);
-	glm::vec3 tangent_vec = (delta_v2*e1 - delta_v1*e2) / r;
-	glm::vec3 bitangent_vec = (delta_u1*e2 - delta_u2*e1) / r;
-
-
-
-	//Push to arrays
-	tangents.push_back(tangent_vec);
-	tangents.push_back(tangent_vec);
-	tangents.push_back(tangent_vec);
-
-	bitangents.push_back(bitangent_vec);
-	bitangents.push_back(bitangent_vec);
-	bitangents.push_back(bitangent_vec);
-
-}
 
 void calculateAllNormals(unsigned short faces[], const int faces_count, float points[], const int normalOffset, float tangents[], float bitangents[], float uv_cords[])
 {
@@ -560,7 +534,7 @@ int main(int argc, char const *argv[])
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	//Textur för cube map
+	//Textur fï¿½r cube map
 	GLuint texture_cube_handle;
 	glGenTextures(1, &texture_cube_handle);
 	glActiveTexture(GL_TEXTURE1); //Antar att det blir 1 nu ?
@@ -613,8 +587,8 @@ int main(int argc, char const *argv[])
 	float f = 100.0;
 
 	glm::vec3 light1_colour(1, 1, 1);
-	glm::vec3 light1_position(1000, 0, 0);
-	glm::vec3 light2_colour(1, 1, 1);
+	glm::vec3 light1_position(2, 1, 2);
+	glm::vec3 light2_colour(0.5, 0.5, 1);
 	glm::vec3 light2_position(-2, 1, 2);
 	glm::vec3 light_colour[] = { light1_colour, light2_colour };
 	glm::vec3 light_position[] = { light1_position, light2_position };

@@ -39,7 +39,7 @@ vec4 gaussian_sample(const sampler2D tex, const vec2 uv, const float radius, con
     (1.0/16.0) * texture(tex,uv - a*ts.x - b*ts.y);
 }
 
-const float sample_offset = 0.02;
+const float sample_offset = 0.01;
 const float displacement_coef = -0.1;
 
 void main()
@@ -95,7 +95,7 @@ void main()
   vec2 v2Tex = teTexCoordTmp + sample_offset * length(t2) * t2;
 
   float d2 = texture(heightmap,v1Tex).y * displacement_coef;
-  float d3 = texture(heightmap,v2Tex).y) * displacement_coef;
+  float d3 = texture(heightmap,v2Tex).y * displacement_coef;
 
   vec3 displacedCoordinate2 = v1 + d2*normal;
   vec3 displacedCoordinate3 = v2 + d3*normal;

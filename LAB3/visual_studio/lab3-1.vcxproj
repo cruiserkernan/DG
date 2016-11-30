@@ -24,7 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Lab3\lodepng.h" />
-    <ClInclude Include="..\Lab3\Shaders.h" />
+    <ClInclude Include="..\Lab3\Shaders3.1.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1662708F-E67D-400F-93FA-67156446468C}</ProjectGuid>

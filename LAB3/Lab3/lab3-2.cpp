@@ -12,7 +12,7 @@
 #include <cstdlib>  
 #include <iostream>
 #include "readfile.hpp"
-#include "Shaders.h"
+#include "Shaders3.2.h"
 #include "lodepng.h"
 
 
@@ -628,7 +628,6 @@ int main(int argc, char const *argv[])
 	for(int i = 0; i < 6; i++)
 	{
 		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, image_w, image_h, 0, GL_RGBA, GL_UNSIGNED_BYTE, cube_image_data[i]);
-		
 	}
 	glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 

@@ -12,7 +12,7 @@
 #include <cstdlib>  
 #include <iostream>
 #include "readfile.hpp"
-#include "Shaders.h"
+#include "Shaders3.1.h"
 #include "lodepng.h"
 
 
@@ -23,7 +23,7 @@
 float g_rotation[2] = { 0, 0 };
 float g_translate[2] = { 0, 0 };
 
-Shaders myShaders("../lab2-5_vs.glsl", "../lab2-5_fs.glsl");
+Shaders myShaders("../lab3-1_vs.glsl", "../lab3-1_fs.glsl");
 
 void checkShaderCompileError(GLint shaderID)
 {

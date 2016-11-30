@@ -118,7 +118,7 @@ void main () {
 	vec3 Wr;
 	vec3 Wo;
 	vec3 bump_normal = texture(normal_sampler,uv).xyz; 
-	bump_normal = normalize(vec3(bump_normal.x*2-1, bump_normal.y*2-1, bump_normal.z*2-1)); //Standard here is bumps, negate xy for cavities
+	bump_normal = normalize(bump_normal*2-1); //Standard here is bumps, negate xy for cavities
 	vec3 normalized_tangent = normalize(tangent.xyz);
 	vec3 normalized_bitangent = normalize(bitangent.xyz);	
 	//vec3 normalized_bitangent = cross(normalized_normal, normalized_tangent);
@@ -130,7 +130,7 @@ void main () {
 	// CAREFUL! NORMAL SWITCH!
 	normalized_normal = normalize(bump_normal);
 
-	for (int i = 0; i < 1; ++i )
+	for (int i = 0; i < light_count; ++i )
 	{
 		Wi = normalize(light_position[i] - position.xyz);
 		sum += blinn_phong(Wi, Wo, normalized_normal) * light_colour[i] * max(dot(Wi, normalized_normal), 0);  

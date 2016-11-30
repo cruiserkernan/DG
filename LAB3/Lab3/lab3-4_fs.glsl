@@ -98,7 +98,7 @@ float oren_nayar(vec3 Wi, vec3 Wo, vec3 n)
 
 vec3 cookTorrance_brdf(vec3 Wi, vec3 Wo, vec3 n, float Kd, float Ks) //Kd + ks <= 1
 {
-	return Kd * texture(tex_sampler, teTexCoord).rgb *  oren_nayar(Wi,Wo,n) + Ks * max(fCookTorrance(Wi,Wo,n), 0); 
+	return Kd * texture(tex_sampler, teTexCoord).rgb*0.5 *  oren_nayar(Wi,Wo,n) + Ks * max(fCookTorrance(Wi,Wo,n), 0); 
 	//return fCookTorrance(Wi,Wo,n);
 }
 
@@ -125,12 +125,14 @@ void main () {
 
 	Wo = normalize(vec3(0,0,0) - tePosition.xyz); //0,0,0 since it is in camera space
 
-	for (int i = 0; i < 1; ++i )
+	for (int i = 0; i < light_count; ++i )
 	{
 		Wi = normalize(light_position[i] - tePosition.xyz);
-		sum += blinn_phong(Wi, Wo, normalized_normal) * light_colour[i] * max(dot(Wi, normalized_normal), 0);  
-		//sum += cookTorrance_brdf(Wi, Wo, normalized_normal, 0.3, 0.7) * light_colour[i] * max(dot(Wi, normalized_normal), 0);
+		//sum += blinn_phong(Wi, Wo, normalized_normal) * light_colour[i] * max(dot(Wi, normalized_normal), 0);  
+		sum += cookTorrance_brdf(Wi, Wo, normalized_normal, 0.3, 0.7) * light_colour[i] * max(dot(Wi, normalized_normal), 0);
 	}
+	vec3 reflected_view = reflect(-Wo,normalized_normal);
+	sum = texture(cube_sampler,reflected_view).rgb * F(Wo, normalized_normal, 1.5) + sum;
 	frag_colour = vec4(pow(sum.x, 1/2.2), pow(sum.y, 1/2.2), pow(sum.z, 1/2.2),  1);
 	//frag_colour = vec4(teNormal.rgb, 1);
 }
