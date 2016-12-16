@@ -99,12 +99,31 @@ float F0(float ior_src, float ior_dest)
 {
 	float oneMinusIOR = ior_src-ior_dest;
 	float onePlusIOR = ior_src+ior_dest;
-	return abs((oneMinusIOR/onePlusIOR)*(oneMinusIOR/onePlusIOR));
+	return (oneMinusIOR/onePlusIOR)*(oneMinusIOR/onePlusIOR);
 }
 
-float F(vec3 Wo, vec3 n, float ior_src, float ior_dest)
+float F(vec3 dir, vec3 n, float ior_src, float ior_dest)
 {
-	float cosTheta = max(dot(Wo,n),0);
+  float cosTheta;
+
+  if(ior_src > ior_dest)
+  {
+      float critical_angle = asin(ior_dest / ior_src);
+      float incident_angle = acos(dot(n, normalize(dir)));
+      if(incident_angle < critical_angle)
+      {
+          cosTheta = dot(refract(dir, n, ior_src/ior_dest),-n);
+      }
+      else
+      {
+         return 1;
+      }
+      
+  }
+  else
+  {
+    cosTheta = dot(dir,n);
+  }
 	float powerToFive = pow((1-cosTheta),5);
 	float F0Value = F0(ior_src, ior_dest);
 	return F0Value + (1-F0Value)*powerToFive;
@@ -128,7 +147,7 @@ void init( vec3 sun_pos, float sun_bright)
   
   scene.spheres[1].center = vec3(0.8, 0.3, 0.8) ;
   scene.spheres[1].radius = 0.3;
-  scene.spheres[1].material.color_diffuse = 0.5 * vec3( 0.0, 0.0, 0.0 );
+  scene.spheres[1].material.color_diffuse = 0.5 * vec3( 0.0, 0.1, 0.0 );
   scene.spheres[1].material.color_glossy = 0.5 * vec3( 1 );
   scene.spheres[1].material.color_emission = vec3( 0 );
   scene.spheres[1].material.reflection = 0.25;
@@ -312,23 +331,23 @@ vec3 raytrace()
           ior_dest = 1.0;
         }
 
+        
         float reflectance_coef = F(normalize(-ray.dir), normalize(nl), ior_src, ior_dest); 
 
-        if(reflectance_coef < 1){
-        vec3 refract_dir = refract(normalize(ray.dir), normalize(nl), ior_src/ior_dest);
-        Ray refract_ray = Ray(isec.point+refract_dir*1e-4, refract_dir, isec.material.transmission* (1 - reflectance_coef)); 
-        push(refract_ray);
-        }
+        if(reflectance_coef < 1)
+        {
+          vec3 refract_dir = refract(normalize(ray.dir), normalize(nl), ior_src/ior_dest);
+          Ray refract_ray = Ray(isec.point+refract_dir*1e-4, refract_dir, isec.material.transmission* (1 - reflectance_coef) * ray.weight); 
+          push(refract_ray);
 
         // Optionally, compute what fraction should be reflected, and
         // send out a second ray in the reflection
         // direction. Otherwise, use the block below for specular
         // reflection.
-
-        if(sign(-dot(isec.normal, ray.dir)) < 0){
-        vec3 reflect_dir = reflect(normalize(ray.dir), normalize(nl));
-        Ray reflect_ray = Ray(isec.point+reflect_dir*1e-4, reflect_dir, isec.material.reflection * reflectance_coef); 
-        push(reflect_ray);
+          vec3 reflect_dir = reflect(normalize(ray.dir), normalize(nl));
+          Ray reflect_ray = Ray(isec.point+reflect_dir*1e-4, reflect_dir, isec.material.reflection * reflectance_coef * ray.weight); 
+          push(reflect_ray);
+        
         }
         
       }
@@ -360,10 +379,10 @@ vec3 raytrace()
         float cosine = dot(nl, light_direction);
         if(length(to_light_isec.point - isec.point) <= light_distance)
         {
-          irradiance = ambient;       
+          irradiance = vec3(0);       
         }
     
-         this_color += irradiance * lambertian_brdf( -light_direction, -ray.dir, isec ) * max(cosine, 0);
+         this_color += ambient * scene.sun_brightness * 0.02 * isec.material.color_diffuse + irradiance * lambertian_brdf( -light_direction, -ray.dir, isec ) * max(cosine, 0);
           this_color += isec.material.color_emission;
           this_color *= ray.weight;
           color += this_color;
