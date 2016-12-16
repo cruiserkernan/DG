@@ -22,6 +22,7 @@ struct Ray { vec3 origin, dir; float weight;};
 
 Ray ray_stack[MAX_DEPTH];
 int ray_stack_size = 0;
+float lastIOR = 1.0;
 
 void push( Ray ray )
 {
@@ -94,6 +95,21 @@ vec3 lambertian_brdf( vec3 in_direction, vec3 out_direction, Intersection isec )
   return vec3(isec.material.color_diffuse/M_PI);
 }
 
+float F0(float ior_src, float ior_dest)
+{
+	float oneMinusIOR = ior_src-ior_dest;
+	float onePlusIOR = ior_src+ior_dest;
+	return abs((oneMinusIOR/onePlusIOR)*(oneMinusIOR/onePlusIOR));
+}
+
+float F(vec3 Wo, vec3 n, float ior_src, float ior_dest)
+{
+	float cosTheta = max(dot(Wo,n),0);
+	float powerToFive = pow((1-cosTheta),5);
+	float F0Value = F0(ior_src, ior_dest);
+	return F0Value + (1-F0Value)*powerToFive;
+}
+
 
 Scene scene;
 
@@ -112,7 +128,7 @@ void init( vec3 sun_pos, float sun_bright)
   
   scene.spheres[1].center = vec3(0.8, 0.3, 0.8) ;
   scene.spheres[1].radius = 0.3;
-  scene.spheres[1].material.color_diffuse = 0.5 * vec3( 0.0, 1.0, 0.0 );
+  scene.spheres[1].material.color_diffuse = 0.5 * vec3( 0.0, 0.0, 0.0 );
   scene.spheres[1].material.color_glossy = 0.5 * vec3( 1 );
   scene.spheres[1].material.color_emission = vec3( 0 );
   scene.spheres[1].material.reflection = 0.25;
@@ -260,7 +276,7 @@ Intersection intersect( Ray ray)
 
 vec3 raytrace() 
 {
-  vec3 ambient = 0.2*vec3(0.3, 0.6, 0.75);   // global ambient light
+  vec3 ambient = 0.4*vec3(0.3, 0.6, 0.75);   // global ambient light
   vec3 color = vec3(0);
 
 
@@ -284,19 +300,44 @@ vec3 raytrace()
         // YOUR TASK: Create new ray, compute its position, its
         // direction (based on isec.material.ior) and its weight, and
         // call push(new_ray).
+        float ior_src, ior_dest;
+        if(sign(-dot(isec.normal, ray.dir)) > 0)
+        {
+          ior_src = 1.0;
+          ior_dest = isec.material.ior;
+        }
+        else
+        {
+          ior_src = isec.material.ior;
+          ior_dest = 1.0;
+        }
+
+        float reflectance_coef = F(normalize(-ray.dir), normalize(nl), ior_src, ior_dest); 
+
+        if(reflectance_coef < 1){
+        vec3 refract_dir = refract(normalize(ray.dir), normalize(nl), ior_src/ior_dest);
+        Ray refract_ray = Ray(isec.point+refract_dir*1e-4, refract_dir, isec.material.transmission* (1 - reflectance_coef)); 
+        push(refract_ray);
+        }
 
         // Optionally, compute what fraction should be reflected, and
         // send out a second ray in the reflection
         // direction. Otherwise, use the block below for specular
         // reflection.
+
+        if(sign(-dot(isec.normal, ray.dir)) < 0){
+        vec3 reflect_dir = reflect(normalize(ray.dir), normalize(nl));
+        Ray reflect_ray = Ray(isec.point+reflect_dir*1e-4, reflect_dir, isec.material.reflection * reflectance_coef); 
+        push(reflect_ray);
+        }
         
       }
       
-      if (isec.material.reflection > 0)
+      else if (isec.material.reflection > 0)
       {
         // YOUR TASK: Create new ray, compute its position, direction,
         // and weight, and call push(ray).
-        vec3 reflect_dir = reflect(normalize(ray.dir), isec.normal);
+        vec3 reflect_dir = reflect(normalize(ray.dir), normalize(nl));
         Ray reflect_ray = Ray(isec.point+reflect_dir*1e-4, reflect_dir, isec.material.reflection); 
         push(reflect_ray);
       }
@@ -316,14 +357,13 @@ vec3 raytrace()
         Intersection to_light_isec = intersect(light_ray);
 
         vec3 irradiance = vec3(0.1 * scene.sun_brightness);
-    
+        float cosine = dot(nl, light_direction);
         if(length(to_light_isec.point - isec.point) <= light_distance)
         {
           irradiance = ambient;       
         }
-
-          float cosine = dot(nl, light_direction);
-          this_color += irradiance * lambertian_brdf( light_direction, -ray.dir, isec ) * cosine;
+    
+         this_color += irradiance * lambertian_brdf( -light_direction, -ray.dir, isec ) * max(cosine, 0);
           this_color += isec.material.color_emission;
           this_color *= ray.weight;
           color += this_color;
